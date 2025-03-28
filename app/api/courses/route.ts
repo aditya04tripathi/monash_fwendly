@@ -5,7 +5,7 @@ import { ApiResponse } from "@/types/api";
 const prisma = new PrismaClient();
 
 // GET all courses
-export async function GET(request: NextRequest) {
+export async function GET() {
 	try {
 		const courses = await prisma.course.findMany({
 			include: { events: true, units: true },

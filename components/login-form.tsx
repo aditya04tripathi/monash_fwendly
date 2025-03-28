@@ -75,7 +75,7 @@ const LoginForm = () => {
 					onClick={() => router.replace("/auth/register")}
 					variant={"link"}
 				>
-					Don't have an account? Register
+					Don&apos;t have an account? Register
 				</Button>
 			</div>
 		</>

@@ -4,11 +4,7 @@ import { ApiResponse } from "@/types/api";
 
 const prisma = new PrismaClient();
 
-// GET a single course by ID
-export async function GET(
-	request: NextRequest,
-	{ params }: { params: { id: string } }
-) {
+export async function GET({ params }: { params: { id: string } }) {
 	try {
 		const id = params.id;
 		const course = await prisma.course.findUnique({

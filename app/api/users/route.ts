@@ -4,7 +4,7 @@ import { ApiResponse } from "@/types/api";
 
 const prisma = new PrismaClient();
 
-export async function GET(request: NextRequest) {
+export async function GET() {
 	try {
 		const users = await prisma.user.findMany();
 		return Response.json({ data: users, error: null } as ApiResponse<User[]>, {

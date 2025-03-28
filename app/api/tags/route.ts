@@ -5,7 +5,7 @@ import { ApiResponse } from "@/types/api";
 const prisma = new PrismaClient();
 
 // GET all tags
-export async function GET(request: NextRequest) {
+export async function GET() {
 	try {
 		const tags = await prisma.tag.findMany({
 			include: { interests: true, events: true },

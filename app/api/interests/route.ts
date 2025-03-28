@@ -5,7 +5,7 @@ import { ApiResponse } from "@/types/api";
 const prisma = new PrismaClient();
 
 // GET all interests
-export async function GET(request: NextRequest) {
+export async function GET() {
 	try {
 		const interests = await prisma.interest.findMany({
 			include: { users: true, tags: true },

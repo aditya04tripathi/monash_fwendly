@@ -5,7 +5,7 @@ import { ApiResponse } from "@/types/api";
 const prisma = new PrismaClient();
 
 // GET all free slots
-export async function GET(request: NextRequest) {
+export async function GET() {
 	try {
 		const freeSlots = await prisma.freeSlot.findMany({
 			include: { user: true },

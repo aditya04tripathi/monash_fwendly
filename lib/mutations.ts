@@ -1,4 +1,4 @@
-import { User, Prisma } from "@prisma/client";
+import { User } from "@prisma/client";
 import { ApiResponse } from "@/types/api";
 
 /**
