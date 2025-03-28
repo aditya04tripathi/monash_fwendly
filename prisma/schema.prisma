@@ -1,0 +1,216 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  password     String
+  studentId    String   @unique
+  startYear    Int
+  endYear      Int
+  bio          String?
+  profileImage String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  interests       Interest[]
+  events          Event[]       @relation("EventCreator")
+  attendingEvents Event[]       @relation("EventAttendees")
+  studentType     StudentTypes?
+  studentTypeId   String?
+  freeSlots       FreeSlot[]
+
+  @@index([email, name, studentId], name: "user_search_index")
+}
+
+model Interest {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
+  tags  Tag[]
+
+  @@index([name], name: "interest_search_index")
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  interests Interest[]
+  events    Event[]
+
+  @@index([name], name: "tag_search_index")
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  location    String
+  startTime   DateTime
+  endTime     DateTime
+  capacity    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  creator     User      @relation("EventCreator", fields: [creatorId], references: [id])
+  creatorId   String
+  attendees   User[]    @relation("EventAttendees")
+  tags        Tag[]
+  eventType   EventType @relation(fields: [eventTypeId], references: [id])
+  eventTypeId String
+  course      Course?   @relation(fields: [courseId], references: [id])
+  courseId    String?
+
+  @@index([title, location, startTime, endTime], name: "event_search_index")
+}
+
+model EventType {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  events Event[]
+
+  @@index([name], name: "event_type_search_index")
+}
+
+model Course {
+  id        String   @id @default(uuid())
+  code      String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  events Event[]
+  units  Unit[]
+
+  @@index([code, name], name: "course_search_index")
+}
+
+model Unit {
+  id        String   @id @default(uuid())
+  code      String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId String
+
+  @@index([code, name], name: "unit_search_index")
+}
+
+model FreeSlot {
+  id        String       @id @default(uuid())
+  code      FreeSlotWeek
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@index([code], name: "free_slot_search_index")
+}
+
+enum StudentTypes {
+  UNDERGRADUATE
+  POSTGRADUATE
+  DOMESTIC
+  INTERNATIONAL
+  TRANSFER
+  EXCHANGE
+}
+
+enum FreeSlotWeek {
+  MONDAY_0800_0900
+  MONDAY_0900_1000
+  MONDAY_1000_1100
+  MONDAY_1100_1200
+  MONDAY_1200_1300
+  MONDAY_1300_1400
+  MONDAY_1400_1500
+  MONDAY_1500_1600
+  MONDAY_1600_1700
+  MONDAY_1700_1800
+  MONDAY_1800_1900
+  MONDAY_1900_2000
+
+  TUESDAY_0800_0900
+  TUESDAY_0900_1000
+  TUESDAY_1000_1100
+  TUESDAY_1100_1200
+  TUESDAY_1200_1300
+  TUESDAY_1300_1400
+  TUESDAY_1400_1500
+  TUESDAY_1500_1600
+  TUESDAY_1600_1700
+  TUESDAY_1700_1800
+  TUESDAY_1800_1900
+  TUESDAY_1900_2000
+
+  WEDNESDAY_0800_0900
+  WEDNESDAY_0900_1000
+  WEDNESDAY_1000_1100
+  WEDNESDAY_1100_1200
+  WEDNESDAY_1200_1300
+  WEDNESDAY_1300_1400
+  WEDNESDAY_1400_1500
+  WEDNESDAY_1500_1600
+  WEDNESDAY_1600_1700
+  WEDNESDAY_1700_1800
+  WEDNESDAY_1800_1900
+  WEDNESDAY_1900_2000
+
+  THURSDAY_0800_0900
+  THURSDAY_0900_1000
+  THURSDAY_1000_1100
+  THURSDAY_1100_1200
+  THURSDAY_1200_1300
+  THURSDAY_1300_1400
+  THURSDAY_1400_1500
+  THURSDAY_1500_1600
+  THURSDAY_1600_1700
+  THURSDAY_1700_1800
+  THURSDAY_1800_1900
+  THURSDAY_1900_2000
+
+  FRIDAY_0800_0900
+  FRIDAY_0900_1000
+  FRIDAY_1000_1100
+  FRIDAY_1100_1200
+  FRIDAY_1200_1300
+  FRIDAY_1300_1400
+  FRIDAY_1400_1500
+  FRIDAY_1500_1600
+  FRIDAY_1600_1700
+  FRIDAY_1700_1800
+  FRIDAY_1800_1900
+  FRIDAY_1900_2000
+
+  SATURDAY_0800_0900
+  SATURDAY_0900_1000
+  SATURDAY_1000_1100
+  SATURDAY_1100_1200
+  SATURDAY_1200_1300
+  SATURDAY_1300_1400
+  SATURDAY_1400_1500
+  SATURDAY_1500_1600
+  SATURDAY_1600_1700
+  SATURDAY_1700_1800
+  SATURDAY_1800_1900
+  SATURDAY_1900_2000
+}

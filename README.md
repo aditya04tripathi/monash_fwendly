@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# API Guide
 
-## Getting Started
+The API follows RESTful principles and provides a consistent interface for all resources. All endpoints return data in a standardized format:
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```typescript
+{
+  data: T | null,
+  error: string | null
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Response Status Codes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `200 OK`: Request succeeded
+- `201 Created`: Resource was successfully created
+- `204 No Content`: Resource was successfully deleted
+- `404 Not Found`: The requested resource was not found
+- `500 Internal Server Error`: Server-side error occurred
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Available Endpoints
 
-## Learn More
+### Users
 
-To learn more about Next.js, take a look at the following resources:
+- `GET /api/users`: Get all users
+- `POST /api/users`: Create a new user
+- `GET /api/users/[id]`: Get a specific user by ID
+- `PUT /api/users/[id]`: Update a user (full update)
+- `PATCH /api/users/[id]`: Update a user (partial update)
+- `DELETE /api/users/[id]`: Delete a user
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Courses
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `GET /api/courses`: Get all courses
+- `POST /api/courses`: Create a new course
+- `GET /api/courses/[id]`: Get a specific course by ID
+- `PUT /api/courses/[id]`: Update a course (full update)
+- `PATCH /api/courses/[id]`: Update a course (partial update)
+- `DELETE /api/courses/[id]`: Delete a course
 
-## Deploy on Vercel
+### Units
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `GET /api/units`: Get all units
+- `POST /api/units`: Create a new unit
+- `GET /api/units/[id]`: Get a specific unit by ID
+- `PUT /api/units/[id]`: Update a unit (full update)
+- `PATCH /api/units/[id]`: Update a unit (partial update)
+- `DELETE /api/units/[id]`: Delete a unit
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Events
+
+- `GET /api/events`: Get all events
+- `POST /api/events`: Create a new event
+- `GET /api/events/[id]`: Get a specific event by ID
+- `PUT /api/events/[id]`: Update an event (full update)
+- `PATCH /api/events/[id]`: Update an event (partial update)
+- `DELETE /api/events/[id]`: Delete an event
+
+### Event Types
+
+- `GET /api/event-types`: Get all event types
+- `POST /api/event-types`: Create a new event type
+- `GET /api/event-types/[id]`: Get a specific event type by ID
+- `PUT /api/event-types/[id]`: Update an event type (full update)
+- `PATCH /api/event-types/[id]`: Update an event type (partial update)
+- `DELETE /api/event-types/[id]`: Delete an event type
+
+### Free Slots
+
+- `GET /api/free-slots`: Get all free slots
+- `POST /api/free-slots`: Create a new free slot
+- `GET /api/free-slots/[id]`: Get a specific free slot by ID
+- `PUT /api/free-slots/[id]`: Update a free slot (full update)
+- `PATCH /api/free-slots/[id]`: Update a free slot (partial update)
+- `DELETE /api/free-slots/[id]`: Delete a free slot
+
+### Interests
+
+- `GET /api/interests`: Get all interests
+- `POST /api/interests`: Create a new interest
+- `GET /api/interests/[id]`: Get a specific interest by ID
+- `PUT /api/interests/[id]`: Update an interest (full update)
+- `PATCH /api/interests/[id]`: Update an interest (partial update)
+- `DELETE /api/interests/[id]`: Delete an interest
+
+### Tags
+
+- `GET /api/tags`: Get all tags
+- `POST /api/tags`: Create a new tag
+- `GET /api/tags/[id]`: Get a specific tag by ID
+- `PUT /api/tags/[id]`: Update a tag (full update)
+- `PATCH /api/tags/[id]`: Update a tag (partial update)
+- `DELETE /api/tags/[id]`: Delete a tag
